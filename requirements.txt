@@ -1,0 +1,12 @@
+oelint-parser ~= 6.4
+pydata-sphinx-theme ~= 0.15
+requests ~= 2.32
+sphinx ~= 8.1
+sphinx_design ~= 0.6
+sphinx-code-tabs ~= 0.5
+sphinx-copybutton ~= 0.5
+sphinx-toolbox ~= 3.8
+sphinxcontrib-jquery ~= 4.1
+sphinxcontrib-programoutput == 0.18
+sphinxcontrib-spelling ~= 8.0
+sphinxcontrib-youtube ~= 1.4
