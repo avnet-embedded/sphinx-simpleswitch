@@ -3,6 +3,7 @@ from __future__ import annotations
 import glob
 from hashlib import sha1
 import os
+import shutil
 import json
 
 from docutils.nodes import Node, raw
@@ -13,21 +14,20 @@ from sphinx.util import logging
 from sphinx.util.docutils import SphinxDirective
 from sphinx.util.typing import ExtensionMetadata
 from sphinx.util.fileutil import copy_asset
+from sphinx.util.osutil import ensuredir
 
 logger = logging.getLogger(__name__)
 
 module_dir = os.path.dirname(__file__)
 assets_dir = os.path.join(module_dir, 'assets')
 
-glob_counter = 0
-found_images = []
-
+_tcmodal_counter = 0
 
 class TermsAndConditionsModal(SphinxDirective):
     """
     Directive creating a modal T&C acceptance dialog.
     """
-    has_content = True
+    has_content = False
     required_arguments = 0
     optional_arguments = 0
     final_argument_whitespace = True
@@ -53,9 +53,10 @@ class TermsAndConditionsModal(SphinxDirective):
                     <label for="checkbox-{_id}"><a href="{link}" target="_blank">I read and I agree to {name}</a></label>
                 <div>
             '''
-
+        img_path = os.path.join(
+            self._docrelpath, '_images', os.path.basename(self._image))
         result = f'''
-        <img width="{self._width}" height="{self._height}" src="_images/{os.path.basename(self._image)}" alt="{self._alttext}" onclick="tcmodal(\'{self._id}\')">
+        <img width="{self._width}" height="{self._height}" src="{img_path}" alt="{self._alttext}" onclick="tcmodal(\'{self._id}\')">
         <div id="{self._id}" class="tcmodal">
             <div class="tcmodal-content">
                 <strong>
@@ -73,14 +74,14 @@ class TermsAndConditionsModal(SphinxDirective):
         return result
 
     def run(self) -> list[Node]:
-        # we need a global counter, as there are potentially
-        # multiple items in a single row (e.g. when using a table)
-        global glob_counter
-        global found_images
+        global _tcmodal_counter
+        env = self.state.document.settings.env
 
-        glob_counter += 1
+        _tcmodal_counter += 1
         file, line = self.get_source_info()
-        loc_info = f'{file}-{line}-{glob_counter}'
+        self._docrelpath = os.path.relpath(env.tcmodal_root_path, os.path.dirname(file))
+
+        loc_info = f'{file}-{line}-{_tcmodal_counter}'
         self._id = sha1(loc_info.encode()).hexdigest()
         try:
             self._tclinks = json.loads(self.options.get('tc-links') or '{}')
@@ -96,30 +97,43 @@ class TermsAndConditionsModal(SphinxDirective):
         if not self._image:
             raise Exception('image is missing')
 
-        # as sphinx doesn't resolve images from a raw block
-        # we will need to copy the referenced items on our own
-        # so we add the absolute path of the item to a global list
-        found_images.append(os.path.join(os.path.dirname(file), self._image))
-
+        fullpath = os.path.join(os.path.dirname(file), self._image)
+        env.tcmodal_image_files[fullpath] = fullpath
+        self.env.app.emit('env-updated', env)
         rawsource = self._create_raw()
         return [raw('', rawsource, format='html')]
 
 
-def copy_asset_files(app, exc):
+def copy_asset_files(app: Sphinx, exc):
     if app.builder.format == 'html' and not exc:
         static_dir = os.path.join(app.builder.outdir, '_static')
-        images_dir = os.path.join(app.builder.outdir, '_images')
         for file in glob.glob(assets_dir + '/*'):
             copy_asset(file, static_dir, force=True)
-        for image in found_images:
-            copy_asset(image, images_dir, force=True)
 
+def install_static_files(app, env):
+    images_dir = os.path.join(app.builder.outdir, '_images')
+    ensuredir(images_dir)
 
+    for image in env.tcmodal_image_files.values():
+        if not os.path.exists(image):
+            logger.warning(f'{image} does not exist')
+            continue
+        _targetpath = os.path.join(images_dir, os.path.basename(image))
+        logger.info(f'Exporting {image} to {_targetpath}')
+        if os.path.exists(_targetpath):
+            os.remove(_targetpath)
+        shutil.copy(image, _targetpath)
+
+def builder_init_hook(app: Sphinx):
+    app.env.tcmodal_root_path = app.builder.srcdir
+    app.env.tcmodal_image_files = {}
+                                
 def setup(app: Sphinx) -> ExtensionMetadata:
     app.connect('build-finished', copy_asset_files)
+    app.connect('builder-inited', builder_init_hook)
+    app.connect('env-updated', install_static_files)
 
-    directives.register_directive(
-        'tcmodal', TermsAndConditionsModal)
+    directives.register_directive('tcmodal', TermsAndConditionsModal)
 
     app.add_js_file('tcmodal.js')
     app.add_css_file('tcmodal.css')
