@@ -8,5 +8,13 @@ setup(
     version = '1.0.0',
     description = 'Sphinx Extensions for SimpleSwitch',
     packages = find_packages(),
+    data_files=[
+        ('sphinx_tcmodal',
+         [
+             'sphinx_tcmodal/assets/tcmodal.js',
+             'sphinx_tcmodal/assets/tcmodal.css',
+        ]),
+    ],
+    include_package_data=True,
     install_requires = install_requires,
 )

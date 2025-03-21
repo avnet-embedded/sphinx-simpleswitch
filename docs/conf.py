@@ -24,6 +24,7 @@ extensions = [
     'sphinxcontrib.programoutput',
     'sphinxcontrib.youtube',
     'sphinx_simpleswitch',
+    'sphinx_tcmodal',
 ]
 
 # enable embedded of sphinx directives from markdown
