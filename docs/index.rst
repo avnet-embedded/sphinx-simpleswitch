@@ -45,6 +45,11 @@ section b
 |                         |   :tc-links: {"NXP EULA": "https://github.com/Freescale/meta-freescale/blob/master/EULA", "SimpleCore EULA": "https://simple.embedded.avnet.com/stable/tools/sphinx/legal.html"}  |     :tc-links: {"SimpleCore EULA": "https://simple.embedded.avnet.com/stable/tools/sphinx/legal.html"}                                                                       |
 +-------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
+section c
+#########
+
+.. betterinclude:: inc/test.inc
+
 .. toctree::
    :titlesonly:
 

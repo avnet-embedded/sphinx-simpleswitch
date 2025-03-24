@@ -25,6 +25,7 @@ extensions = [
     'sphinxcontrib.youtube',
     'sphinx_simpleswitch',
     'sphinx_tcmodal',
+    'betterinclude',
 ]
 
 # enable embedded of sphinx directives from markdown
