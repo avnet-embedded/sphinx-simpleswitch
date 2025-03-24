@@ -101,9 +101,8 @@ class TermsAndConditionsModal(SphinxDirective):
 
         fullpath = os.path.abspath(os.path.join(
             os.path.dirname(file), self._image))
-        if os.path.isfile(fullpath):
-            env.tcmodal_image_files[fullpath] = fullpath
-            self.env.app.emit('env-updated', env)
+        env.tcmodal_image_files[fullpath] = fullpath
+        self.env.app.emit('env-updated', env)
         rawsource = self._create_raw()
         new_node = tcmodal_raw('', rawsource, format='html')
         self.set_source_info(new_node)
