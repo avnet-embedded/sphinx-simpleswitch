@@ -1,0 +1,93 @@
+.before-userjourney {
+    margin-bottom: 10px;
+}
+
+.userjourney {
+    width: 100%;
+    list-style: none;
+    overflow: hidden;
+    height: 40px;
+    max-height: 40px;
+    max-width: 85%;
+    display: inline-flex;
+    white-space: nowrap;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    mask-image: linear-gradient(90deg, #000 90%, transparent);
+}
+
+p::after, .userjourney {
+    margin-top: -5px;
+    margin-bottom: -10px;
+}
+
+.userjourney li {
+    float: left;
+}
+
+.userjourney li span {
+    /* color: white; */
+    margin-left: -10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-left-color: %userjourney_border_color%;
+    border-left-style: solid;
+    border-left-width: 2px;
+}
+
+.pre-userjourney-subsection {
+    content:url('_images/userjourney-sub.png');
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    margin-right: 10px;
+}
+
+.pre-userjourney-step {
+    content:url('_images/userjourney-step.png');
+    margin-left: 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    margin-right: 10px;
+}
+
+.userjourney-level-top {
+    background: %userjourney_section_bg_color%;
+    color: %userjourney_section_txt_color%;
+    z-index: 1;
+}
+
+.userjourney-level-top-active {
+    background: %userjourney_section_bg_color_active%;
+    color: %userjourney_section_txt_color_active%;
+    z-index: 1;
+}
+
+.userjourney-level-sub {
+    background: %userjourney_subsection_bg_color%;
+    color: %userjourney_subsection_txt_color%;
+    z-index: 2;
+}
+
+.userjourney-level-sub-active {
+    background: %userjourney_subsection_bg_color_active%;
+    color: %userjourney_subsection_txt_color_active%;
+    z-index: 2;
+}
+
+.userjourney-level-step {
+    background: %userjourney_step_bg_color%;
+    color: %userjourney_step_txt_color%;
+    z-index: 3;
+}
+
+.userjourney-level-step-active {
+    background: %userjourney_step_bg_color_active%;
+    color: %userjourney_step_txt_color_active%;
+    z-index: 3;
+}
