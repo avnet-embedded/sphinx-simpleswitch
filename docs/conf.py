@@ -19,6 +19,7 @@ extensions = [
     'sphinx_code_tabs',
     'sphinx_copybutton',
     'sphinx_design',
+    'sphinx_userjourney_bar',
     'sphinx_toolbox.collapse',
     'sphinxcontrib.jquery',
     'sphinxcontrib.programoutput',
@@ -75,3 +76,10 @@ autosectionlabel_prefix_document = True
 
 # enable auto link generation for markdown
 myst_heading_anchors = 3
+
+userjourney_sections = {
+    'base image': ['Setup HW', 'Setup SW', 'Premade'],
+    'sdk': [],
+    'yocto': [],
+    'production': []
+}
