@@ -59,6 +59,17 @@ usage
     :width: <optional width of the image - default: 32>
 ```
 
+### color configuration
+
+in your css you can override the defaults for the following color settings
+
+- ``--tcmodal-bg-color`` - color of the blurred area
+- ``--tcmodal-content-bg-color`` - modal box background color
+- ``--tcmodal-content-border-color`` - modal box border color
+- ``--tcmodal-content-font-color`` - modal box font color
+- ``--tcmodal-content-button-bg-color`` - download button background color
+- ``--tcmodal-content-button-font-color`` - download button font color
+
 ## betterinclude
 
 is just like the standard include directive, but really injects a copy of the
@@ -114,19 +125,21 @@ or just the top level
 
 ### color configuration
 
-- userjourney_border_color - color of the border of each item
-- userjourney_section_bg_color - background color top level inactive
-- userjourney_section_bg_color_active - background color top level active
-- userjourney_section_txt_color - text color top level inactive
-- userjourney_section_txt_color_active - text color top level active
-- userjourney_subsection_bg_color - background color second level inactive
-- userjourney_subsection_bg_color_active - background color second level active
-- userjourney_subsection_txt_color - text color top 2nd level inactive
-- userjourney_subsection_txt_color_active - text color top 2nd level active
-- userjourney_step_bg_color - background color 3rd level inactive
-- userjourney_step_bg_color_active - background color 3rd level inactive
-- userjourney_step_txt_color - text color top 3rd level inactive
-- userjourney_step_txt_color_active - text color top 3rd level active
+in your css you can override the defaults for the following color settings
+
+- ``--userjourney_border_color`` - color of the border of each item
+- ``--userjourney_section_bg_color`` - background color top level inactive
+- ``--userjourney_section_bg_color_active`` - background color top level active
+- ``--userjourney_section_txt_color`` - text color top level inactive
+- ``--userjourney_section_txt_color_active`` - text color top level active
+- ``--userjourney_subsection_bg_color`` - background color second level inactive
+- ``--userjourney_subsection_bg_color_active`` - background color second level active
+- ``--userjourney_subsection_txt_color`` - text color top 2nd level inactive
+- ``--userjourney_subsection_txt_color_active`` - text color top 2nd level active
+- ``--userjourney_step_bg_color`` - background color 3rd level inactive
+- ``--userjourney_step_bg_color_active`` - background color 3rd level inactive
+- ``--userjourney_step_txt_color`` - text color top 3rd level inactive
+- ``--userjourney_step_txt_color_active`` - text color top 3rd level active
 
 ### Material icons
 
