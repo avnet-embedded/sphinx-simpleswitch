@@ -1,3 +1,45 @@
+html[data-theme="light"] {
+    --userjourney_border_color: white;
+    --userjourney_section_bg_color_active: var(--sd-color-primary-highlight);
+    --userjourney_section_bg_color: var(--sd-color-primary);
+    --userjourney_section_txt_color_active: white;
+    --userjourney_section_txt_color: white;
+    --userjourney_step_bg_color_active: var(--sd-color-info-highlight);
+    --userjourney_step_bg_color: var(--sd-color-muted);
+    --userjourney_step_txt_color_active: white;
+    --userjourney_step_txt_color: white;
+    --userjourney_subsection_bg_color_active: var(--sd-color-secondary-highlight);
+    --userjourney_subsection_bg_color: var(--sd-color-secondary);
+    --userjourney_subsection_txt_color_active: white;
+    --userjourney_subsection_txt_color: white;
+}
+
+html[data-theme="dark"] {
+    --userjourney_border_color: black;
+    --userjourney_section_bg_color_active: var(--sd-color-primary-highlight);
+    --userjourney_section_bg_color: var(--sd-color-primary);
+    --userjourney_section_txt_color_active: white;
+    --userjourney_section_txt_color: white;
+    --userjourney_step_bg_color_active: var(--sd-color-info-highlight);
+    --userjourney_step_bg_color: var(--sd-color-muted);
+    --userjourney_step_txt_color_active: black;
+    --userjourney_step_txt_color: black;
+    --userjourney_subsection_bg_color_active: var(--sd-color-secondary-highlight);
+    --userjourney_subsection_bg_color: var(--sd-color-secondary);
+    --userjourney_subsection_txt_color_active: white;
+    --userjourney_subsection_txt_color: white;
+
+    .pre-userjourney-subsection {
+        background-color: transparent !important;
+        filter: invert(1) !important;
+    }
+
+    .pre-userjourney-step {
+        background-color: transparent !important;
+        filter: invert(1) !important;
+    }
+}
+
 .before-userjourney {
     margin-bottom: 10px;
 }
@@ -34,7 +76,7 @@ p::after, .userjourney {
     border-bottom-right-radius: 20px;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
-    border-left-color: %userjourney_border_color%;
+    border-left-color: var(--userjourney_border_color);
     border-left-style: solid;
     border-left-width: 2px;
 }
@@ -57,37 +99,37 @@ p::after, .userjourney {
 }
 
 .userjourney-level-top {
-    background: %userjourney_section_bg_color%;
-    color: %userjourney_section_txt_color%;
+    background: var(--userjourney_section_bg_color);
+    color: var(--userjourney_section_txt_color);
     z-index: 1;
 }
 
 .userjourney-level-top-active {
-    background: %userjourney_section_bg_color_active%;
-    color: %userjourney_section_txt_color_active%;
+    background: var(--userjourney_section_bg_color_active);
+    color: var(--userjourney_section_txt_color_active);
     z-index: 1;
 }
 
 .userjourney-level-sub {
-    background: %userjourney_subsection_bg_color%;
-    color: %userjourney_subsection_txt_color%;
+    background: var(--userjourney_subsection_bg_color);
+    color: var(--userjourney_subsection_txt_color);
     z-index: 2;
 }
 
 .userjourney-level-sub-active {
-    background: %userjourney_subsection_bg_color_active%;
-    color: %userjourney_subsection_txt_color_active%;
+    background: var(--userjourney_subsection_bg_color_active);
+    color: var(--userjourney_subsection_txt_color_active);
     z-index: 2;
 }
 
 .userjourney-level-step {
-    background: %userjourney_step_bg_color%;
-    color: %userjourney_step_txt_color%;
+    background: var(--userjourney_step_bg_color);
+    color: var(--userjourney_step_txt_color);
     z-index: 3;
 }
 
 .userjourney-level-step-active {
-    background: %userjourney_step_bg_color_active%;
-    color: %userjourney_step_txt_color_active%;
+    background: var(--userjourney_step_bg_color_active);
+    color: var(--userjourney_step_txt_color_active);
     z-index: 3;
 }
