@@ -58,7 +58,7 @@ html_context = {
 html_theme_options = {
     "check_switcher": False,
     "navbar_align": "left",
-    "navbar_end": ["navbar-icon-links"],
+    "navbar_end": ["theme-switcher", "navbar-icon-links"],
 }
 
 primary_domain = 'rst'
@@ -83,3 +83,15 @@ userjourney_sections = {
     'yocto': [],
     'production': []
 }
+userjourney_section_bg_color = "#001F63"
+userjourney_section_bg_color_active = "#FF00A3"
+userjourney_section_txt_color = "white"
+userjourney_section_txt_color_active = "black"
+userjourney_step_bg_color = "#00A1BE"
+userjourney_step_bg_color_active = "#C8C9C7"
+userjourney_step_txt_color = "black"
+userjourney_step_txt_color_active = "black"
+userjourney_subsection_bg_color = "#97999B"
+userjourney_subsection_bg_color_active = "#53565A"
+userjourney_subsection_txt_color = "black"
+userjourney_subsection_txt_color_active = "white"
