@@ -134,33 +134,6 @@ class UserJourney(SphinxDirective):
 
 
 def copy_asset_files(app: Sphinx, exc):
-    def patch_css(file):
-        with open(file, 'r+') as i:
-            content = i.read()
-
-            for item in ['userjourney_border_color',
-                         'userjourney_section_bg_color',
-                         'userjourney_section_bg_color_active',
-                         'userjourney_section_txt_color',
-                         'userjourney_section_txt_color_active',
-                         'userjourney_subsection_bg_color',
-                         'userjourney_subsection_bg_color_active',
-                         'userjourney_subsection_txt_color',
-                         'userjourney_subsection_txt_color_active',
-                         'userjourney_step_bg_color',
-                         'userjourney_step_bg_color_active',
-                         'userjourney_step_txt_color',
-                         'userjourney_step_txt_color_active']:
-                val = getattr(app.config, item, None)
-                if val is None:
-                    continue
-                content = content.replace(f'%{item}%', str(val))
-
-            i.seek(0)
-            i.truncate()
-
-            i.write(content)
-
     if app.builder.format == 'html' and not exc:
         static_dir = os.path.join(app.builder.outdir, '_static')
         for file in glob.glob(assets_dir + '/*') + glob.glob(assets_dir + '/**/*'):
@@ -170,35 +143,12 @@ def copy_asset_files(app: Sphinx, exc):
             targetpath = os.path.join(static_dir, relpath)
             os.makedirs(os.path.dirname(targetpath), exist_ok=True)
             shutil.copy(file, targetpath)
-        patch_css(os.path.join(static_dir, 'userjourney.css'))
 
 
 def setup(app: Sphinx) -> ExtensionMetadata:
     app.connect('build-finished', copy_asset_files)
 
     app.add_config_value('userjourney_sections', {}, False)
-
-    app.add_config_value('userjourney_border_color', 'white', 'html')
-    app.add_config_value('userjourney_section_bg_color',
-                         'var(--sd-color-primary)', 'html')
-    app.add_config_value('userjourney_section_bg_color_active',
-                         'var(--sd-color-primary-highlight)', 'html')
-    app.add_config_value('userjourney_section_txt_color', 'white', 'html')
-    app.add_config_value(
-        'userjourney_section_txt_color_active', 'white', 'html')
-    app.add_config_value('userjourney_subsection_bg_color',
-                         'var(--sd-color-secondary)', 'html')
-    app.add_config_value('userjourney_subsection_bg_color_active',
-                         'var(--sd-color-secondary-highlight)', 'html')
-    app.add_config_value('userjourney_subsection_txt_color', 'white', 'html')
-    app.add_config_value(
-        'userjourney_subsection_txt_color_active', 'white', 'html')
-    app.add_config_value('userjourney_step_bg_color',
-                         'var(--sd-color-muted)', 'html')
-    app.add_config_value('userjourney_step_bg_color_active',
-                         'var(--sd-color-info-highlight)', 'html')
-    app.add_config_value('userjourney_step_txt_color', 'white', 'html')
-    app.add_config_value('userjourney_step_txt_color_active', 'white', 'html')
 
     directives.register_directive('userjourney', UserJourney)
 
