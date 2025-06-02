@@ -1,6 +1,23 @@
+html[data-theme="light"] {
+    --tcmodal-bg-color: rgba(0, 0, 0, 0.4);
+    --tcmodal-content-bg-color: #fefefe;
+    --tcmodal-content-border-color: #888;
+    --tcmodal-content-font-color: black;
+    --tcmodal-content-button-bg-color: lightgray;
+    --tcmodal-content-button-font-color: black;
+}
+
+html[data-theme="dark"] {
+    --tcmodal-bg-color: rgba(255, 255, 255, 0.4);
+    --tcmodal-content-bg-color: #fefefe;
+    --tcmodal-content-border-color: #888;
+    --tcmodal-content-font-color: black;
+    --tcmodal-content-button-bg-color: white;
+    --tcmodal-content-button-font-color: black;
+}
+
 .tcmodal {
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: var(--tcmodal-bg-color);
     display: none;
     height: 100%;
     left: 0;
@@ -12,9 +29,15 @@
 }
 
 .tcmodal-content {
-    background-color: #fefefe;
-    border: 1px solid #888;
+    background-color: var(--tcmodal-content-bg-color);
+    border: 1px solid var(--tcmodal-content-border-color);
+    color: var(--tcmodal-content-font-color);
     margin: 15% auto;
     padding: 20px;
     width: 80%;
+}
+
+.tcmodal-content-button {
+    background-color: var(--tcmodal-content-button-bg-color);
+    color: var(--tcmodal-content-button-font-color);
 }

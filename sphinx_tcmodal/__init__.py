@@ -67,7 +67,7 @@ class TermsAndConditionsModal(SphinxDirective):
                     Terms and Conditions, listed below
                 </strong>
                 <br/>
-                <button type="button" disabled id="button-{self._id}" onclick="window.open(\'{self._target}\')">Download</button>
+                <button type="button" class="tcmodal-content-button" disabled id="button-{self._id}" onclick="window.open(\'{self._target}\')">Download</button>
                 <br/>
                 {tc_boxes}
                 <br/>
