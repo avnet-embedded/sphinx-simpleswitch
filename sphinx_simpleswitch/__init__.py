@@ -55,6 +55,7 @@ class SimpleSwitchContainer(SphinxDirective):
         self._repmap = {
             '%availablefor%': self.__availableFor,
             '%categories%': self.__categories,
+            '%summary%': self.__summary,
             '%description%': self.__description,
             '%header%': self.__heading,
             '%image%': self.__image,
@@ -73,6 +74,9 @@ class SimpleSwitchContainer(SphinxDirective):
 
     def __description(self, data, indent) -> str:
         return textwrap.indent(data.get('description', ''), ' ' * indent).lstrip()
+
+    def __summary(self, data, indent) -> str:
+        return textwrap.indent(data.get('summary', ''), ' ' * indent).lstrip()
 
     def __tab_by_launcher(self, data, indent) -> str:
         if data.get('local', True):
@@ -172,6 +176,7 @@ class SimpleSwitchContainer(SphinxDirective):
         _stash = Stash(quiet=True)
         _stash.AddFile(file)
         data['description'] = extract(_stash, 'DESCRIPTION')
+        data['summary'] = extract(_stash, 'SUMMARY')
         data['categories'] = [x for x in extract(
             _stash, 'SIMPLESWITCH_CATEGORIES').split(' ') if x]
         return data
