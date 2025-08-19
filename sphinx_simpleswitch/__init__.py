@@ -27,13 +27,11 @@ from sphinx.writers.texinfo import TexinfoTranslator
 logger = logging.getLogger(__name__)
 
 
-def _get_data():
-    url = 'https://avnet-embedded.github.io/simpleswitch-launcher-web/data.json'
+def _get_data(config):
+    url = f'{config.simpleswitch_launcher_url}/data.json'
     resp = requests.get(url=url)
     return resp.json()
 
-
-_simpleswitch_data = _get_data()
 
 class SimpleSwitchContainer(SphinxDirective):
     """
@@ -82,7 +80,7 @@ class SimpleSwitchContainer(SphinxDirective):
         if data.get('local', True):
             return ''
         res = '.. tab:: with SimpleSwitch Launcher\n\n'
-        res += f'    .. button-link:: https://avnet-embedded.github.io/simpleswitch-launcher-web/?showItem={data["name"]}\n'
+        res += f'    .. button-link:: {self.config.simpleswitch_launcher_url}/?showItem={data["name"]}\n'
         res += f'        :color: info\n\n'
         res += f'        See in Launcher'
         return textwrap.indent(res, ' ' * indent).lstrip()
@@ -99,10 +97,7 @@ class SimpleSwitchContainer(SphinxDirective):
 
                 ## From the base image run
                 $ skopeo login ghcr.io
-                $ export machine=$CONTAINER_HELPER_ARCH
-                $ export package={data["name"]}
-                $ export tag={version}
-                $ container-helper registry-install ghcr.io ghcr.io/avnet-embedded/simpleswitch/${{machine}}/${{package}}:${{tag}}
+                $ container-helper --tag={version} ghcr.io/{self.config.simpleswitch_github_org}/simpleswitch/$CONTAINER_HELPER_ARCH/{data["name"]}
                 $ simpleswitch-helper start ${{package}}
         ''')
         return textwrap.indent(res, ' ' * indent).lstrip()
@@ -184,6 +179,8 @@ class SimpleSwitchContainer(SphinxDirective):
     def run(self) -> list[Node]:
         name = self.options.get('name')
         file = self.options.get('file')
+
+        _simpleswitch_data = _get_data(self.config)
 
         _lines = []
         _first_line_found = False
@@ -284,6 +281,10 @@ def setup(app: Sphinx) -> ExtensionMetadata:
         'simpleswitch_containerlist', SimpleSwitchContainerList)
     directives.register_directive(
         'simpleswitch_container', SimpleSwitchContainer)
+
+    app.add_config_value('simpleswitch_github_org', 'avnet-embedded', 'html')
+    app.add_config_value('simpleswitch_launcher_url',
+                         'https://avnet-embedded.github.io/simpleswitch-launcher-web/', 'html')
 
     return {
         'parallel_read_safe': True,
