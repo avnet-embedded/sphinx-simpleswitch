@@ -24,6 +24,9 @@ from sphinx.writers.html5 import HTML5Translator
 from sphinx.writers.latex import LaTeXTranslator
 from sphinx.writers.texinfo import TexinfoTranslator
 
+from m2r2 import convert
+from jinja2 import Environment
+
 logger = logging.getLogger(__name__)
 
 
@@ -71,7 +74,13 @@ class SimpleSwitchContainer(SphinxDirective):
         return textwrap.indent(res, ' ' * indent).lstrip()
 
     def __description(self, data, indent) -> str:
-        return textwrap.indent(data.get('description', ''), ' ' * indent).lstrip()
+        desc = data.get('description', '').replace('!!!inlineblock!!!', '')
+        jinja_env = Environment(trim_blocks=True, lstrip_blocks=True)
+
+        res = jinja_env.from_string(desc).render(
+            web=True
+        )
+        return textwrap.indent(convert(textwrap.dedent(res)), ' ' * indent).lstrip()
 
     def __summary(self, data, indent) -> str:
         return textwrap.indent(data.get('summary', ''), ' ' * indent).lstrip()
