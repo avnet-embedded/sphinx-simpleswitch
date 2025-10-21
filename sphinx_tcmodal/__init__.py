@@ -121,14 +121,17 @@ def install_static_files(app, env):
     ensuredir(images_dir)
 
     for image in env.tcmodal_image_files.values():
-        if not os.path.exists(image):
-            logger.warning(f'{image} does not exist')
-            continue
-        _targetpath = os.path.join(images_dir, os.path.basename(image))
-        logger.info(f'Exporting {image} to {_targetpath}')
-        if os.path.exists(_targetpath):
-            os.remove(_targetpath)
-        shutil.copy(image, _targetpath)
+        try:
+            if not os.path.exists(image):
+                logger.warning(f'{image} does not exist')
+                continue
+            _targetpath = os.path.join(images_dir, os.path.basename(image))
+            logger.info(f'Exporting {image} to {_targetpath}')
+            if os.path.exists(_targetpath):
+                os.remove(_targetpath)
+            shutil.copy(image, _targetpath)
+        except Exception as e:
+            logger.warning(f'{image} copy threw exception {e}')
 
 
 def builder_init_hook(app: Sphinx):
