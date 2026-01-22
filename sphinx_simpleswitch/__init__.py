@@ -107,7 +107,7 @@ class SimpleSwitchContainer(SphinxDirective):
                 ## From the base image run
                 $ skopeo login ghcr.io
                 $ container-helper --tag={version} ghcr.io/{self.config.simpleswitch_github_org}/simpleswitch/$CONTAINER_HELPER_ARCH/{data["name"]}
-                $ simpleswitch-helper start ${{package}}
+                $ simpleswitch-helper start {data["name"]}
         ''')
         return textwrap.indent(res, ' ' * indent).lstrip()
 
