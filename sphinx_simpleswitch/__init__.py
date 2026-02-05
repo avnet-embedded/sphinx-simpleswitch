@@ -181,6 +181,8 @@ class SimpleSwitchContainer(SphinxDirective):
         _stash.AddFile(file)
         data['description'] = extract(_stash, 'DESCRIPTION')
         data['summary'] = extract(_stash, 'SUMMARY')
+        if not data['description']:
+            data['description'] = data['summary'] or ''
         data['categories'] = [x for x in extract(
             _stash, 'SIMPLESWITCH_CATEGORIES').split(' ') if x]
         return data
