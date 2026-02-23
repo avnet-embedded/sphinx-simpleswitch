@@ -9,6 +9,6 @@ sphinx-copybutton ~= 0.5
 sphinx-toolbox ~= 4.0
 sphinx_design ~= 0.6
 sphinxcontrib-jquery ~= 4.1
-sphinxcontrib-programoutput == 0.18
+sphinxcontrib-programoutput >= 0.18
 sphinxcontrib-spelling ~= 8.0
 sphinxcontrib-youtube ~= 1.4
