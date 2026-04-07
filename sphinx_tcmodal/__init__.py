@@ -59,7 +59,7 @@ class TermsAndConditionsModal(SphinxDirective):
                 <div>
             '''
         result = f'''
-        <img width="{self._width}" height="{self._height}" src="%RELPATH%/_images/{os.path.basename(self._image)}" alt="{self._alttext}" onclick="tcmodal(\'{self._id}\')">
+        <img width="{self._width}" height="{self._height}" src="%RELPATH%/_images/{os.path.basename(self._image)}" style="cursor: pointer;" alt="{self._alttext}" onclick="tcmodal(\'{self._id}\')">
         <div id="{self._id}" class="tcmodal">
             <div class="tcmodal-content">
                 <strong>
